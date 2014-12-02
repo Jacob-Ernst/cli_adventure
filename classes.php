@@ -27,7 +27,7 @@ class Character{
         if(($target->potion_num > 0) && ($target->health != $target->max_health)){
             $target->health += 20;
             $target->potion_num--;
-            fwrite(STDOUT, "$target->name gained 5 health" . PHP_EOL);
+            fwrite(STDOUT, "$target->name gained 20 health" . PHP_EOL);
             fwrite(STDOUT, "$target->name has $target->potion_num potions left" . PHP_EOL);
         }
     }
@@ -118,14 +118,14 @@ class Event{
             
             if ($monsta->health > 0) {
                 
-                $monsta->do_damage($player);
+                $monsta->do_damage($this->player);
                 
                 echo "$monsta->name does $monsta->atk damage to you" . PHP_EOL;
-
-                echo "You have $this->player->health health" . PHP_EOL;
+                $health = $this->player->health;
+                echo "You have $health health" . PHP_EOL;
             }
             
-        } while ($monsta->health > 0);
+        } while (($monsta->health > 0) || ($player->heal > 0));
         fwrite(STDOUT, 'HE DEAD' . PHP_EOL);
     }
 }
